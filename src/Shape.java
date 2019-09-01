@@ -46,29 +46,10 @@ public class Shape extends GLCanvas implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
-        this.drawShapes(glAutoDrawable);
-    }
-
-    @Override
-    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-        GL2 gl = drawable.getGL().getGL2();
-
-        if (height == 0) height = 1;
-        float aspect = (float) width / height;
-
-        gl.glMatrixMode(GL_PROJECTION);
-        gl.glLoadIdentity();
-        glu.gluPerspective(45.0, aspect, 0.1, 100.0);
-
-        gl.glMatrixMode(GL_MODELVIEW);
-        gl.glLoadIdentity();
-    }
-
-    private void drawShapes(GLAutoDrawable drawable){
-        GL2 gl = drawable.getGL().getGL2();
+        GL2 gl = glAutoDrawable.getGL().getGL2();
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        gl.glTranslatef(-5.5f, -2.0f, -6.0f);
+        gl.glTranslatef(-5.5f, -0.0f, -6.0f);
         gl.glScalef(0.2f, 0.2f, -6.0f);
 
         //GL_POINTS
@@ -100,6 +81,21 @@ public class Shape extends GLCanvas implements GLEventListener {
 
         //GL_POLYGON
         this.drawShape(gl, GL_POLYGON);
+    }
+
+    @Override
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+        GL2 gl = drawable.getGL().getGL2();
+
+        if (height == 0) height = 1;
+        float aspect = (float) width / height;
+
+        gl.glMatrixMode(GL_PROJECTION);
+        gl.glLoadIdentity();
+        glu.gluPerspective(45.0, aspect, 0.1, 100.0);
+
+        gl.glMatrixMode(GL_MODELVIEW);
+        gl.glLoadIdentity();
     }
 
     private void drawShape(GL2 gl, int type){
